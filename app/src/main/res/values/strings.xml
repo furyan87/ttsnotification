@@ -2,4 +2,9 @@
     <string name="app_name">TTSNotifications</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="serviceEnablerLabel">Enable TTS-Notifications</string>
+    <string name="homeTitle">Home</string>
+    <string name="appTitle">Apps</string>
+    <string name="wifiTitle">Wifi</string>
+    <string name="locationTitle">Location</string>
 </resources>
