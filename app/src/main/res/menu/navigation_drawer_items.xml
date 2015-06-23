@@ -8,13 +8,16 @@
             android:title="Home"/>
         <item
             android:id="@+id/appMenu"
+            android:icon="@drawable/ic_apps_black_24dp"
             android:title="Apps"/>
         <item
             android:id="@+id/wifiMenu"
+            android:icon="@drawable/ic_network_wifi_black_24dp"
             android:title="Wifi"/>
 
         <item
             android:id="@+id/locationMenu"
+            android:icon="@drawable/ic_location_on_black_24dp"
             android:title="Location"/>
 
     </group>
