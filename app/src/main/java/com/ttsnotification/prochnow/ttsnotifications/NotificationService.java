@@ -13,7 +13,8 @@ import android.util.Log;
  */
 public class NotificationService extends NotificationListenerService implements TextToSpeech.OnInitListener {
 
-
+    private final String LOG_TAG = NotificationService.class.getSimpleName();
+    
     @Override
     public void onCreate() {
         super.onCreate();
@@ -38,7 +39,7 @@ public class NotificationService extends NotificationListenerService implements 
 
         msgrcv.putExtra("title", title);
         //msgrcv.putExtra("text", text);
-
+        Log.d(LOG_TAG, "onNotificationPosted ");
         LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(msgrcv);
     }
 
