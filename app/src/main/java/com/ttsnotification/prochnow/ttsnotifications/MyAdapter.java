@@ -1,14 +1,23 @@
 package com.ttsnotification.prochnow.ttsnotifications;
 
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.ttsnotification.prochnow.ttsnotifications.database.SimpleData;
+
+import java.util.List;
 
 /**
  * Created by prochnow on 24.06.15.
  */
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
-    private String[] mDataset;
+    private List<SimpleData> mDataset;
+
+    public MyAdapter(List<SimpleData> list) {
+        mDataset = list;
+    }
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -17,22 +26,19 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         // each data item is just a string in this case
         public TextView mTextView;
 
-        public ViewHolder(TextView v) {
+        public ViewHolder(View v) {
             super(v);
 
-            mTextView = v;
-        }
-    }
+            mTextView = (TextView) v;
 
-    // Provide a suitable constructor (depends on the kind of dataset)
-    public MyAdapter(String[] myDataset) {
-        mDataset = myDataset;
+        }
     }
 
     // Create new views (invoked by the layout manager)
     @Override
-    public MyAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                   int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent,
+                                         int viewType) {
+
         // create a new view
         TextView textView = new TextView(parent.getContext());
         // set the view's size, margins, paddings and layout parameters
@@ -44,15 +50,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        // - get element from your dataset at this position
-        // - replace the contents of the view with that element
-        holder.mTextView.setText(mDataset[position]);
+        holder.mTextView.setText(mDataset.get(position).toString());
 
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return mDataset.length;
+        return mDataset.size();
     }
+
 }
