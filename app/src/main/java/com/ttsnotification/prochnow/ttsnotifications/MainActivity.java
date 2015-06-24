@@ -2,6 +2,7 @@ package com.ttsnotification.prochnow.ttsnotifications;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -25,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private ActionBarDrawerToggle drawerToggle;
     @InjectView(R.id.toolbar) Toolbar toolbar;
     @InjectView(R.id.navigation) NavigationView navigation;
-
+    @InjectView(R.id.fabBtn) FloatingActionButton fabButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +88,10 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        doFragmentTransition(new HomeFragment(), getString(R.string.homeTitle));
+        HomeFragment fragment = new HomeFragment();
+        fragment.applyFABButton(fabButton);
+
+        doFragmentTransition(fragment, getString(R.string.homeTitle));
 
 
         navigation.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -95,14 +99,18 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(MenuItem menuItem) {
                 int id = menuItem.getItemId();
                 drawerLayout.closeDrawers();
+
                 switch (id) {
                     case R.id.homeMenu:
-
-                        doFragmentTransition(new HomeFragment(), getString(R.string.homeTitle));
+                        HomeFragment fragment = new HomeFragment();
+                        fragment.applyFABButton(fabButton);
+                        doFragmentTransition(fragment, getString(R.string.homeTitle));
 
                         break;
                     case R.id.appMenu:
-                        doFragmentTransition(new AppFragment(), getString(R.string.appTitle));
+                        AppFragment appFragment = new AppFragment();
+                        appFragment.applyFABButton(fabButton);
+                        doFragmentTransition(appFragment, getString(R.string.appTitle));
                         break;
                     case R.id.wifiMenu:
 

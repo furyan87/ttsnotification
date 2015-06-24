@@ -15,6 +15,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:text="@string/serviceEnablerLabel"
+
         android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
 
     <Switch
@@ -28,7 +29,7 @@
     <Button
         android:id="@+id/speakButton"
         android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@id/serviceEnablerSwitch"/>
 
 

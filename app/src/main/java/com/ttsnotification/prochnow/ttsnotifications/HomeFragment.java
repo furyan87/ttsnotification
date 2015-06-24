@@ -3,6 +3,7 @@ package com.ttsnotification.prochnow.ttsnotifications;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,6 +24,7 @@ public class HomeFragment extends Fragment {
     private final String LOG_TAG = HomeFragment.class.getSimpleName();
 
     @InjectView(R.id.serviceEnablerSwitch) Switch serviceEnabledSwitch;
+
 
     private static NotificationBroadcastReceiver receiver;
 
@@ -67,6 +69,10 @@ public class HomeFragment extends Fragment {
             editor.edit().putBoolean(getString(R.string.serviceEnabledKey), false).apply();
         }
 
+    }
+
+    public void applyFABButton(FloatingActionButton fabButton) {
+        fabButton.setVisibility(View.GONE);
     }
 
 
