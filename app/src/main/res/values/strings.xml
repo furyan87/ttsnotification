@@ -7,4 +7,6 @@
     <string name="appTitle">Apps</string>
     <string name="wifiTitle">Wifi</string>
     <string name="locationTitle">Location</string>
+    <string name="preferences">ApplicationPreferences</string>
+    <string name="serviceEnabledKey">serviceEnabled</string>
 </resources>

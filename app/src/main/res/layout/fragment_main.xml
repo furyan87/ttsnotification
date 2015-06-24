@@ -18,11 +18,18 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
 
     <Switch
+        android:id="@+id/serviceEnablerSwitch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/serviceEnablerLabel"/>
+
+    <Button
+        android:id="@+id/speakButton"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/serviceEnablerSwitch"/>
 
 
 </RelativeLayout>
