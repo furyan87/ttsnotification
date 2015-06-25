@@ -22,4 +22,11 @@ public class LocationFragment extends Fragment {
 
         return rootView;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Set title
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle(R.string.locationTitle);
+    }
 }

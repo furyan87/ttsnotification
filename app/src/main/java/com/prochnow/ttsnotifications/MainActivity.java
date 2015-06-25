@@ -97,12 +97,10 @@ public class MainActivity extends AppCompatActivity {
         switch (ACTIVE_SCREEN) {
             case HOME:
                 HomeFragment fragment = new HomeFragment();
-                fragment.applyFABButton(fabButton);
                 doFragmentTransition(fragment, getString(R.string.homeTitle));
                 break;
             case APP:
                 AppFragment appFragment = new AppFragment();
-                appFragment.applyFABButton(fabButton);
                 doFragmentTransition(appFragment, getString(R.string.appTitle));
                 break;
             case WIFI:
@@ -120,23 +118,18 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(MenuItem menuItem) {
                 int id = menuItem.getItemId();
                 drawerLayout.closeDrawers();
-
                 switch (id) {
                     case R.id.homeMenu:
                         HomeFragment fragment = new HomeFragment();
-                        fragment.applyFABButton(fabButton);
                         doFragmentTransition(fragment, getString(R.string.homeTitle));
                         ACTIVE_SCREEN = Screens.HOME;
                         break;
                     case R.id.appMenu:
                         AppFragment appFragment = new AppFragment();
-                        appFragment.applyFABButton(fabButton);
                         doFragmentTransition(appFragment, getString(R.string.appTitle));
                         ACTIVE_SCREEN = Screens.APP;
-
                         break;
                     case R.id.wifiMenu:
-
                         doFragmentTransition(new WifiFragment(), getString(R.string.wifiTitle));
                         ACTIVE_SCREEN = Screens.WIFI;
                         break;
@@ -154,7 +147,6 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-        getSupportActionBar().setTitle(newActionBarTitle);
         fragmentTransaction.replace(R.id.contentArea, fragment, null);
         fragmentTransaction.commit();
     }

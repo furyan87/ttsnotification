@@ -51,8 +51,10 @@ public class HomeFragment extends Fragment {
 
     private void initInstances() {
         boolean isServiceRunning = editor.getBoolean(getString(R.string.serviceEnabledKey), false);
-
         serviceEnabledSwitch.setChecked(isServiceRunning);
+
+        FloatingActionButton floatingActionButton = ButterKnife.findById(getActivity(), R.id.fabBtn);
+        floatingActionButton.setVisibility(View.GONE);
     }
 
     public String getTitle() {
@@ -71,10 +73,12 @@ public class HomeFragment extends Fragment {
 
     }
 
-    public void applyFABButton(FloatingActionButton fabButton) {
-        fabButton.setVisibility(View.GONE);
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Set title
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle(R.string.homeTitle);
     }
-
 
 //    @OnClick(R.id.speakButton)
 //    void onClick() {

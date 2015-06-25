@@ -9,4 +9,5 @@
     <string name="locationTitle">Location</string>
     <string name="preferences">ApplicationPreferences</string>
     <string name="serviceEnabledKey">serviceEnabled</string>
+    <string name="addAppTitle">Add Applications</string>
 </resources>
