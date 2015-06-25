@@ -21,6 +21,10 @@ public class MainActivity extends AppCompatActivity {
 
     private final String LOG_TAG = MainActivity.class.getSimpleName();
 
+    private enum Screens {HOME, APP, WIFI, LOCATION}
+
+    private static Screens ACTIVE_SCREEN = Screens.HOME;
+
 
     @InjectView(R.id.drawerLayout) DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
@@ -88,10 +92,25 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        HomeFragment fragment = new HomeFragment();
-        fragment.applyFABButton(fabButton);
+        switch (ACTIVE_SCREEN) {
+            case HOME:
+                HomeFragment fragment = new HomeFragment();
+                fragment.applyFABButton(fabButton);
+                doFragmentTransition(fragment, getString(R.string.homeTitle));
+                break;
+            case APP:
+                AppFragment appFragment = new AppFragment();
+                appFragment.applyFABButton(fabButton);
+                doFragmentTransition(appFragment, getString(R.string.appTitle));
+                break;
+            case WIFI:
 
-        doFragmentTransition(fragment, getString(R.string.homeTitle));
+                doFragmentTransition(new WifiFragment(), getString(R.string.wifiTitle));
+                break;
+            case LOCATION:
+                doFragmentTransition(new LocationFragment(), getString(R.string.locationTitle));
+                break;
+        }
 
 
         navigation.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -105,19 +124,23 @@ public class MainActivity extends AppCompatActivity {
                         HomeFragment fragment = new HomeFragment();
                         fragment.applyFABButton(fabButton);
                         doFragmentTransition(fragment, getString(R.string.homeTitle));
-
+                        ACTIVE_SCREEN = Screens.HOME;
                         break;
                     case R.id.appMenu:
                         AppFragment appFragment = new AppFragment();
                         appFragment.applyFABButton(fabButton);
                         doFragmentTransition(appFragment, getString(R.string.appTitle));
+                        ACTIVE_SCREEN = Screens.APP;
+
                         break;
                     case R.id.wifiMenu:
 
                         doFragmentTransition(new WifiFragment(), getString(R.string.wifiTitle));
+                        ACTIVE_SCREEN = Screens.WIFI;
                         break;
                     case R.id.locationMenu:
                         doFragmentTransition(new LocationFragment(), getString(R.string.locationTitle));
+                        ACTIVE_SCREEN = Screens.LOCATION;
                         break;
                 }
                 return false;
