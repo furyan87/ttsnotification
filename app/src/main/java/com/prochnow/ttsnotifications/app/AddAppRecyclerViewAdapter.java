@@ -1,34 +1,67 @@
 package com.prochnow.ttsnotifications.app;
 
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.prochnow.ttsnotifications.R;
+
 import java.util.List;
+
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 
 /**
  * Created by prochnow on 24.06.15.
  */
 public class AddAppRecyclerViewAdapter extends RecyclerView.Adapter<AddAppRecyclerViewAdapter.ViewHolder> {
-    private List<String> mDataset;
+    public List<AppInfo> applicationData;
 
-    public AddAppRecyclerViewAdapter(List<String> list) {
-        mDataset = list;
+    private final String LOG_TAG = AddAppRecyclerViewAdapter.class.getSimpleName();
+
+    public interface OnItemClickListener {
+        void onListItemClick(int position);
     }
+
+    OnItemClickListener listener = new OnItemClickListener() {
+        @Override
+        public void onListItemClick(int position) {
+            applicationData.get(position).selected = !applicationData.get(position).selected;
+        }
+    };
+
+    public AddAppRecyclerViewAdapter(List<AppInfo> list) {
+        this.applicationData = list;
+    }
+
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         // each data item is just a string in this case
-        public TextView mTextView;
+        @InjectView(R.id.appName) TextView appName;
+        @InjectView(R.id.appIcon) ImageView appIcon;
+        @InjectView(R.id.appCheckbox) CheckBox appCheckbox;
+        OnItemClickListener click;
 
-        public ViewHolder(View v) {
+        private final String LOG_TAG = ViewHolder.class.getSimpleName();
+
+        public ViewHolder(View v, OnItemClickListener click) {
             super(v);
+            ButterKnife.inject(this, v);
+            this.click = click;
+            v.setOnClickListener(this);
+        }
 
-            mTextView = (TextView) v;
-
+        @Override
+        public void onClick(View view) {
+            click.onListItemClick(getAdapterPosition());
+            this.appCheckbox.toggle();
         }
     }
 
@@ -36,26 +69,26 @@ public class AddAppRecyclerViewAdapter extends RecyclerView.Adapter<AddAppRecycl
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent,
                                          int viewType) {
-
-        // create a new view
-        TextView textView = new TextView(parent.getContext());
-        // set the view's size, margins, paddings and layout parameters
-
-        ViewHolder vh = new ViewHolder(textView);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_row_addapp, null);
+        ViewHolder vh = new ViewHolder(v, listener);
         return vh;
     }
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.mTextView.setText(mDataset.get(position).toString());
+        AppInfo info = applicationData.get(position);
 
+        holder.appIcon.setImageDrawable(info.icon);
+        holder.appName.setText(info.name);
+        holder.appCheckbox.setChecked(info.selected);
     }
+
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return mDataset.size();
+        return applicationData.size();
     }
 
 }
