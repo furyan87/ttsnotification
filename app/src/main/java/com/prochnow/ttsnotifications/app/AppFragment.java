@@ -1,4 +1,4 @@
-package com.ttsnotification.prochnow.ttsnotifications;
+package com.prochnow.ttsnotifications.app;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -12,8 +12,9 @@ import android.view.ViewGroup;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
-import com.ttsnotification.prochnow.ttsnotifications.database.DatabaseHelper;
-import com.ttsnotification.prochnow.ttsnotifications.database.SimpleData;
+import com.prochnow.ttsnotifications.R;
+import com.prochnow.ttsnotifications.database.DatabaseHelper;
+import com.prochnow.ttsnotifications.database.SimpleData;
 
 import java.util.List;
 import java.util.Random;

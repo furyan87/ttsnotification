@@ -1,4 +1,4 @@
-package com.ttsnotification.prochnow.ttsnotifications.database;
+package com.prochnow.ttsnotifications.database;
 
 import com.j256.ormlite.field.DatabaseField;
 

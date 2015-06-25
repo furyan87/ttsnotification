@@ -1,4 +1,4 @@
-package com.ttsnotification.prochnow.ttsnotifications;
+package com.prochnow.ttsnotifications;
 
 import android.app.Service;
 import android.content.Intent;

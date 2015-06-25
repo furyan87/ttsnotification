@@ -1,4 +1,4 @@
-package com.ttsnotification.prochnow.ttsnotifications.database;
+package com.prochnow.ttsnotifications.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -9,7 +9,7 @@ import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
-import com.ttsnotification.prochnow.ttsnotifications.R;
+import com.prochnow.ttsnotifications.R;
 
 import java.sql.SQLException;
 

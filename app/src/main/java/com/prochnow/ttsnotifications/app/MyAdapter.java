@@ -1,11 +1,11 @@
-package com.ttsnotification.prochnow.ttsnotifications;
+package com.prochnow.ttsnotifications.app;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.ttsnotification.prochnow.ttsnotifications.database.SimpleData;
+import com.prochnow.ttsnotifications.database.SimpleData;
 
 import java.util.List;
 

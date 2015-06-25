@@ -1,4 +1,4 @@
-package com.ttsnotification.prochnow.ttsnotifications;
+package com.prochnow.ttsnotifications;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -13,6 +13,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.prochnow.ttsnotifications.app.AppFragment;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
