@@ -14,6 +14,7 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnClick;
 
 /**
  * Created by prochnow on 24.06.15.
@@ -62,6 +63,11 @@ public class AddAppRecyclerViewAdapter extends RecyclerView.Adapter<AddAppRecycl
         public void onClick(View view) {
             click.onListItemClick(getAdapterPosition());
             this.appCheckbox.toggle();
+        }
+
+        @OnClick(R.id.appCheckbox)
+        void onClick() {
+            click.onListItemClick(getAdapterPosition());
         }
     }
 
