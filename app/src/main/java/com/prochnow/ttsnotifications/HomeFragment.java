@@ -46,6 +46,8 @@ public class HomeFragment extends Fragment {
         ButterKnife.inject(this, rootView);
 
         initInstances();
+
+
         return rootView;
     }
 
@@ -55,6 +57,7 @@ public class HomeFragment extends Fragment {
 
         FloatingActionButton floatingActionButton = ButterKnife.findById(getActivity(), R.id.fabBtn);
         floatingActionButton.setVisibility(View.GONE);
+
     }
 
     public String getTitle() {

@@ -2,7 +2,6 @@ package com.prochnow.ttsnotifications;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -23,16 +22,16 @@ public class MainActivity extends AppCompatActivity {
 
     private final String LOG_TAG = MainActivity.class.getSimpleName();
 
-    private enum Screens {HOME, APP, WIFI, LOCATION}
+    public enum Screens {HOME, APP, WIFI, LOCATION}
 
-    private static Screens ACTIVE_SCREEN = Screens.HOME;
+    public static Screens ACTIVE_SCREEN = Screens.HOME;
 
 
     @InjectView(R.id.drawerLayout) DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
     @InjectView(R.id.toolbar) Toolbar toolbar;
     @InjectView(R.id.navigation) NavigationView navigation;
-    @InjectView(R.id.fabBtn) FloatingActionButton fabButton;
+//    @InjectView(R.id.fabBtn) FloatingActionButton fabButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,9 +72,6 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -113,11 +109,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+
+
         navigation.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
                 int id = menuItem.getItemId();
-                drawerLayout.closeDrawers();
+
                 switch (id) {
                     case R.id.homeMenu:
                         HomeFragment fragment = new HomeFragment();
@@ -138,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
                         ACTIVE_SCREEN = Screens.LOCATION;
                         break;
                 }
-                return false;
+                return true;
             }
         });
     }
@@ -146,9 +144,9 @@ public class MainActivity extends AppCompatActivity {
     private void doFragmentTransition(Fragment fragment, String newActionBarTitle) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
         fragmentTransaction.replace(R.id.contentArea, fragment, null);
         fragmentTransaction.commit();
+        drawerLayout.closeDrawers();
     }
 
 

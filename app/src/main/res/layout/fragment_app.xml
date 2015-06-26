@@ -5,12 +5,5 @@
                 android:layout_height="match_parent"
                 tools:context=".MainActivityFragment">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/appListView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:paddingBottom="@dimen/fab_height"
-        android:scrollbars="none"/>
 </RelativeLayout>
 

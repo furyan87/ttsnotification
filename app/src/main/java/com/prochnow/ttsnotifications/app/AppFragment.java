@@ -1,11 +1,9 @@
 package com.prochnow.ttsnotifications.app;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +18,6 @@ import com.prochnow.ttsnotifications.database.SimpleData;
 import java.util.List;
 
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 /**
  * Created by prochnow on 23.06.15.
@@ -30,12 +27,8 @@ public class AppFragment extends Fragment {
     private static final int MAX_NUM_TO_CREATE = 10;
     private final String LOG_TAG = AppFragment.class.getSimpleName();
 
-
-    @InjectView(R.id.appListView) RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
     List<SimpleData> list;
-
+    View rootView;
 
     private DatabaseHelper databaseHelper = null;
 
@@ -67,21 +60,9 @@ public class AppFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_app, container, false);
+
+        rootView = inflater.inflate(R.layout.fragment_app, container, false);
         ButterKnife.inject(this, rootView);
-
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
-        mRecyclerView.setHasFixedSize(true);
-
-        // use a linear layout manager
-        mLayoutManager = new LinearLayoutManager(getActivity());
-        mRecyclerView.setLayoutManager(mLayoutManager);
-
-        // specify an adapter (see also next example)
-        mAdapter = new AppRecyclerViewAdapter(list);
-        mRecyclerView.setAdapter(mAdapter);
-
         initInstances();
 
         return rootView;
@@ -101,21 +82,11 @@ public class AppFragment extends Fragment {
         fabBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Create new fragment and transaction
-                AddAppFragment newFragment = new AddAppFragment();
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-
-                // Replace whatever is in the fragment_container view with this fragment,
-                // and add the transaction to the back stack
-                transaction.replace(R.id.contentArea, newFragment);
-                transaction.addToBackStack(null);
-
-                // Commit the transaction
-                transaction.commit();
-
+                Intent intent = new Intent(getActivity(), AddApplicationActivity.class);
+                startActivity(intent);
             }
-        });
 
+        });
     }
 
 }
