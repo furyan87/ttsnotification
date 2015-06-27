@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.prochnow.ttsnotifications.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -20,7 +21,7 @@ import butterknife.OnClick;
  * Created by prochnow on 24.06.15.
  */
 public class AddAppRecyclerViewAdapter extends RecyclerView.Adapter<AddAppRecyclerViewAdapter.ViewHolder> {
-    public List<AppInfo> applicationData;
+    public List<AppInfo> applicationData = new ArrayList<>();
 
     private final String LOG_TAG = AddAppRecyclerViewAdapter.class.getSimpleName();
 
@@ -35,7 +36,11 @@ public class AddAppRecyclerViewAdapter extends RecyclerView.Adapter<AddAppRecycl
         }
     };
 
-    public AddAppRecyclerViewAdapter(List<AppInfo> list) {
+    public AddAppRecyclerViewAdapter() {
+
+    }
+
+    public void setData(List<AppInfo> list) {
         this.applicationData = list;
     }
 

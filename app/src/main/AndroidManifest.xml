@@ -21,6 +21,7 @@
         <activity
             android:name=".app.AddApplicationActivity"
             android:label="@string/addAppTitle">
+
             >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
