@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,10 +22,45 @@ import butterknife.OnClick;
 /**
  * Created by prochnow on 24.06.15.
  */
-public class AddAppRecyclerViewAdapter extends RecyclerView.Adapter<AddAppRecyclerViewAdapter.ViewHolder> {
-    public List<AppInfo> applicationData = new ArrayList<>();
+public class AppListRecyclerViewAdapter extends RecyclerView.Adapter<AppListRecyclerViewAdapter.ViewHolder> implements Filterable {
+    public List<AppInfo> originalList = new ArrayList<>();
+    public List<AppInfo> filteredList = new ArrayList<>();
 
-    private final String LOG_TAG = AddAppRecyclerViewAdapter.class.getSimpleName();
+    private final String LOG_TAG = AppListRecyclerViewAdapter.class.getSimpleName();
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+
+                FilterResults results = new FilterResults();
+                List<AppInfo> filteredResults = new ArrayList<>();
+
+                if (charSequence.length() == 0) {
+                    filteredResults.addAll(originalList);
+                } else {
+                    final String filterPattern = charSequence.toString().toLowerCase().trim();
+
+                    for (AppInfo appInfo : originalList) {
+                        if (appInfo.name.toLowerCase().contains(filterPattern)) {
+                            filteredResults.add(appInfo);
+                        }
+                    }
+                }
+                results.values = filteredResults;
+                results.count = filteredResults.size();
+                return results;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                filteredList.clear();
+                filteredList.addAll((ArrayList<AppInfo>) filterResults.values);
+                notifyDataSetChanged();
+            }
+        };
+    }
 
     public interface OnItemClickListener {
         void onListItemClick(int position);
@@ -32,21 +69,22 @@ public class AddAppRecyclerViewAdapter extends RecyclerView.Adapter<AddAppRecycl
     OnItemClickListener listener = new OnItemClickListener() {
         @Override
         public void onListItemClick(int position) {
-            applicationData.get(position).selected = !applicationData.get(position).selected;
+            filteredList.get(position).selected = !filteredList.get(position).selected;
         }
     };
 
-    public AddAppRecyclerViewAdapter() {
+    public AppListRecyclerViewAdapter() {
 
     }
 
     public void setData(List<AppInfo> list) {
-        this.applicationData = list;
+        this.originalList = list;
+        this.filteredList.addAll(originalList);
     }
 
 
     // Provide a reference to the views for each data item
-    // Complex data items may need more than one view per item, and
+    // Complex data filteredList may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         // each data item is just a string in this case
@@ -88,7 +126,7 @@ public class AddAppRecyclerViewAdapter extends RecyclerView.Adapter<AddAppRecycl
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        AppInfo info = applicationData.get(position);
+        AppInfo info = filteredList.get(position);
 
         holder.appIcon.setImageDrawable(info.icon);
         holder.appName.setText(info.name);
@@ -99,7 +137,7 @@ public class AddAppRecyclerViewAdapter extends RecyclerView.Adapter<AddAppRecycl
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return applicationData.size();
+        return filteredList.size();
     }
 
 }

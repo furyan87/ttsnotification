@@ -6,15 +6,18 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
-import com.prochnow.ttsnotifications.HomeFragment;
 import com.prochnow.ttsnotifications.R;
 
 import java.util.ArrayList;
@@ -29,12 +32,15 @@ import butterknife.InjectView;
 public class AppListFragment extends Fragment {
 
 
-    private final String LOG_TAG = HomeFragment.class.getSimpleName();
+    private final String LOG_TAG = AppListFragment.class.getSimpleName();
 
     @InjectView(R.id.appListView) RecyclerView appListView;
-    private AddAppRecyclerViewAdapter mAdapter;
+    private AppListRecyclerViewAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     @InjectView(R.id.progressBar) ProgressBar progressBar;
+    @InjectView(R.id.progressBarText) TextView progressBarText;
+
+    View rootView;
 
     public AppListFragment() {
     }
@@ -47,7 +53,8 @@ public class AppListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_applist, container, false);
+
+        rootView = inflater.inflate(R.layout.fragment_applist, container, false);
         ButterKnife.inject(this, rootView);
 
         mLayoutManager = new LinearLayoutManager(getActivity());
@@ -56,7 +63,7 @@ public class AppListFragment extends Fragment {
         appListView.setHasFixedSize(true);
 
         // specify an adapter (see also next example)
-        mAdapter = new AddAppRecyclerViewAdapter();
+        mAdapter = new AppListRecyclerViewAdapter();
         appListView.setAdapter(mAdapter);
 
         initInstances();
@@ -68,7 +75,6 @@ public class AppListFragment extends Fragment {
     private void initInstances() {
         LoadAppTask load = new LoadAppTask(getActivity());
         load.execute();
-
     }
 
     public String getTitle() {
@@ -81,6 +87,22 @@ public class AppListFragment extends Fragment {
         super.onResume();
         // Set title
 //        ((MainActivity) getActivity()).getSupportActionBar().setTitle(R.string.homeTitle);
+
+        SearchView searchView = ButterKnife.findById(getActivity(), R.id.searchView);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                Log.d(LOG_TAG, "onQueryTextChange ");
+                mAdapter.getFilter().filter(newText);
+
+                return true;
+            }
+        });
     }
 
 //    @OnClick(R.id.speakButton)
@@ -101,10 +123,11 @@ public class AppListFragment extends Fragment {
 //
 //    }
 
-    private class LoadAppTask extends AsyncTask<Void, Void, ArrayList<AppInfo>> {
+    private class LoadAppTask extends AsyncTask<Void, Integer, ArrayList<AppInfo>> {
 
 
         Context context;
+        int count;
 
         public LoadAppTask(Context context) {
             this.context = context;
@@ -124,6 +147,7 @@ public class AppListFragment extends Fragment {
             List<ApplicationInfo> pkgAppsList = pkgManager.getInstalledApplications(0);
             appList = new ArrayList<>(pkgAppsList.size());
             //TODO 25.06.15 filter already added apps
+            count = pkgAppsList.size();
             for (ApplicationInfo info : pkgAppsList) {
                 appList.add(new AppInfo(pkgManager.getApplicationLabel(info).toString(), info.packageName, pkgManager.getApplicationIcon(info)));
             }
@@ -134,8 +158,12 @@ public class AppListFragment extends Fragment {
         @Override
         protected void onPostExecute(ArrayList<AppInfo> appInfos) {
             progressBar.setVisibility(View.GONE);
+            progressBarText.setVisibility(View.GONE);
             mAdapter.setData(appInfos);
             mAdapter.notifyDataSetChanged();
+            ;
+
+            Snackbar.make(appListView, "Loaded " + count + " apps", Snackbar.LENGTH_SHORT).show();
 
         }
     }
