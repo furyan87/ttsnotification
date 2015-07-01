@@ -1,10 +1,13 @@
-package com.prochnow.ttsnotifications;
+package com.prochnow.ttsnotifications.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.prochnow.ttsnotifications.MainActivity;
+import com.prochnow.ttsnotifications.R;
 
 import butterknife.ButterKnife;
 
@@ -17,7 +20,7 @@ public class WifiFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_wifi, container, false);
-        ButterKnife.inject(this, rootView);
+        ButterKnife.bind(this, rootView);
 
 
         return rootView;

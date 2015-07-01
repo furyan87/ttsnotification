@@ -1,4 +1,4 @@
-package com.prochnow.ttsnotifications;
+package com.prochnow.ttsnotifications.service;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +8,8 @@ import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
+
+import com.prochnow.ttsnotifications.R;
 
 /**
  * Created by prochnow on 21.06.15.

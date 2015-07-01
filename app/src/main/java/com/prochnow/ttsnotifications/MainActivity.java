@@ -13,10 +13,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.prochnow.ttsnotifications.app.AppFragment;
+import com.prochnow.ttsnotifications.fragment.AppFragment;
+import com.prochnow.ttsnotifications.fragment.HomeFragment;
+import com.prochnow.ttsnotifications.fragment.LocationFragment;
+import com.prochnow.ttsnotifications.fragment.WifiFragment;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,11 +30,11 @@ public class MainActivity extends AppCompatActivity {
     public static Screens ACTIVE_SCREEN = Screens.HOME;
 
 
-    @InjectView(R.id.drawerLayout) DrawerLayout drawerLayout;
+    @Bind(R.id.drawerLayout) DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
-    @InjectView(R.id.toolbar) Toolbar toolbar;
-    @InjectView(R.id.navigation) NavigationView navigation;
-//    @InjectView(R.id.fabBtn) FloatingActionButton fabButton;
+    @Bind(R.id.toolbar) Toolbar toolbar;
+    @Bind(R.id.navigation) NavigationView navigation;
+    //    @Bind(R.id.fabBtn) FloatingActionButton fabButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
         setSupportActionBar(toolbar);
         initInstances();
     }
@@ -67,12 +70,6 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
 
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -84,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void initInstances() {
-        drawerToggle = new ActionBarDrawerToggle(MainActivity.this, drawerLayout, R.string.hello_world, R.string.hello_world);
+        drawerToggle = new ActionBarDrawerToggle(MainActivity.this, drawerLayout, R.string.openDrawer, R.string.closeDrawer);
         drawerLayout.setDrawerListener(drawerToggle);
 
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -93,22 +90,20 @@ public class MainActivity extends AppCompatActivity {
         switch (ACTIVE_SCREEN) {
             case HOME:
                 HomeFragment fragment = new HomeFragment();
-                doFragmentTransition(fragment, getString(R.string.homeTitle));
+                doFragmentTransition(fragment);
                 break;
             case APP:
                 AppFragment appFragment = new AppFragment();
-                doFragmentTransition(appFragment, getString(R.string.appTitle));
+                doFragmentTransition(appFragment);
                 break;
             case WIFI:
 
-                doFragmentTransition(new WifiFragment(), getString(R.string.wifiTitle));
+                doFragmentTransition(new WifiFragment());
                 break;
             case LOCATION:
-                doFragmentTransition(new LocationFragment(), getString(R.string.locationTitle));
+                doFragmentTransition(new LocationFragment());
                 break;
         }
-
-
 
 
         navigation.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -119,20 +114,20 @@ public class MainActivity extends AppCompatActivity {
                 switch (id) {
                     case R.id.homeMenu:
                         HomeFragment fragment = new HomeFragment();
-                        doFragmentTransition(fragment, getString(R.string.homeTitle));
+                        doFragmentTransition(fragment);
                         ACTIVE_SCREEN = Screens.HOME;
                         break;
                     case R.id.appMenu:
                         AppFragment appFragment = new AppFragment();
-                        doFragmentTransition(appFragment, getString(R.string.appTitle));
+                        doFragmentTransition(appFragment);
                         ACTIVE_SCREEN = Screens.APP;
                         break;
                     case R.id.wifiMenu:
-                        doFragmentTransition(new WifiFragment(), getString(R.string.wifiTitle));
+                        doFragmentTransition(new WifiFragment());
                         ACTIVE_SCREEN = Screens.WIFI;
                         break;
                     case R.id.locationMenu:
-                        doFragmentTransition(new LocationFragment(), getString(R.string.locationTitle));
+                        doFragmentTransition(new LocationFragment());
                         ACTIVE_SCREEN = Screens.LOCATION;
                         break;
                 }
@@ -141,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void doFragmentTransition(Fragment fragment, String newActionBarTitle) {
+    private void doFragmentTransition(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.contentArea, fragment, null);

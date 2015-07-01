@@ -1,10 +1,12 @@
-package com.prochnow.ttsnotifications;
+package com.prochnow.ttsnotifications.receiver;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
+
+import com.prochnow.ttsnotifications.service.TTSService;
 
 /**
  * Created by prochnow on 24.06.15.

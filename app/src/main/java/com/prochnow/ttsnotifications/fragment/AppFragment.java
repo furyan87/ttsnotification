@@ -1,4 +1,4 @@
-package com.prochnow.ttsnotifications.app;
+package com.prochnow.ttsnotifications.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,12 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
-import com.j256.ormlite.dao.RuntimeExceptionDao;
+import com.j256.ormlite.dao.Dao;
+import com.prochnow.ttsnotifications.AddApplicationActivity;
 import com.prochnow.ttsnotifications.MainActivity;
 import com.prochnow.ttsnotifications.R;
-import com.prochnow.ttsnotifications.database.DatabaseHelper;
-import com.prochnow.ttsnotifications.database.SimpleData;
+import com.prochnow.ttsnotifications.model.DatabaseHelper;
+import com.prochnow.ttsnotifications.model.AppInfo;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -27,7 +29,7 @@ public class AppFragment extends Fragment {
     private static final int MAX_NUM_TO_CREATE = 10;
     private final String LOG_TAG = AppFragment.class.getSimpleName();
 
-    List<SimpleData> list;
+    List<AppInfo> list;
     View rootView;
 
     private DatabaseHelper databaseHelper = null;
@@ -43,8 +45,7 @@ public class AppFragment extends Fragment {
 
     private DatabaseHelper getHelper() {
         if (databaseHelper == null) {
-            databaseHelper =
-                    OpenHelperManager.getHelper(getActivity(), DatabaseHelper.class);
+            databaseHelper = OpenHelperManager.getHelper(getActivity(), DatabaseHelper.class);
         }
         return databaseHelper;
     }
@@ -52,17 +53,27 @@ public class AppFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        RuntimeExceptionDao<SimpleData, Integer> simpleDao = getHelper().getSimpleDataDao();
+        Dao<AppInfo, String> simpleDao = null;
+        try {
+            simpleDao = getHelper().getAppInfoDao();
+        } catch (SQLException e) {
+            //TODO 01.07.15 error handling
+            e.printStackTrace();
+        }
         // query for all of the data objects in the database
-        list = simpleDao.queryForAll();
+        try {
+            list = simpleDao.queryForAll();
+        } catch (SQLException e) {
+            //TODO 01.07.15 error handling
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         rootView = inflater.inflate(R.layout.fragment_app, container, false);
-        ButterKnife.inject(this, rootView);
+        ButterKnife.bind(this, rootView);
         initInstances();
 
         return rootView;

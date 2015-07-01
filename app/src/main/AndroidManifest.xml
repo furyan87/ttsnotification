@@ -19,7 +19,7 @@
         </activity>
 
         <activity
-            android:name=".app.AddApplicationActivity"
+            android:name=".AddApplicationActivity"
             android:label="@string/addAppTitle">
 
             >
@@ -29,14 +29,14 @@
         </activity>
 
 
-        <receiver android:name=".NotificationBroadcastReceiver">
+        <receiver android:name=".receiver.NotificationBroadcastReceiver">
             <intent-filter>
                 <action android:name="Msg"/>
             </intent-filter>
         </receiver>
 
         <service
-            android:name=".NotificationService"
+            android:name=".service.NotificationService"
             android:label="@string/app_name"
             android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
 
@@ -45,7 +45,7 @@
             </intent-filter>
         </service>
 
-        <service android:name=".TTSService"/>
+        <service android:name=".service.TTSService"/>
     </application>
 
 </manifest>

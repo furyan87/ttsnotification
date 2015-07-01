@@ -1,4 +1,4 @@
-package com.prochnow.ttsnotifications.app;
+package com.prochnow.ttsnotifications.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,12 +11,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.prochnow.ttsnotifications.R;
+import com.prochnow.ttsnotifications.model.AppInfo;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import butterknife.OnClick;
 
 /**
@@ -43,7 +44,7 @@ public class AppListRecyclerViewAdapter extends RecyclerView.Adapter<AppListRecy
                     final String filterPattern = charSequence.toString().toLowerCase().trim();
 
                     for (AppInfo appInfo : originalList) {
-                        if (appInfo.name.toLowerCase().contains(filterPattern)) {
+                        if (appInfo.getName().toLowerCase().contains(filterPattern)) {
                             filteredResults.add(appInfo);
                         }
                     }
@@ -69,7 +70,7 @@ public class AppListRecyclerViewAdapter extends RecyclerView.Adapter<AppListRecy
     OnItemClickListener listener = new OnItemClickListener() {
         @Override
         public void onListItemClick(int position) {
-            filteredList.get(position).selected = !filteredList.get(position).selected;
+            filteredList.get(position).toggleSelection();
         }
     };
 
@@ -88,16 +89,16 @@ public class AppListRecyclerViewAdapter extends RecyclerView.Adapter<AppListRecy
     // you provide access to all the views for a data item in a view holder
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         // each data item is just a string in this case
-        @InjectView(R.id.appName) TextView appName;
-        @InjectView(R.id.appIcon) ImageView appIcon;
-        @InjectView(R.id.appCheckbox) CheckBox appCheckbox;
+        @Bind(R.id.appName) TextView appName;
+        @Bind(R.id.appIcon) ImageView appIcon;
+        @Bind(R.id.appCheckbox) CheckBox appCheckbox;
         OnItemClickListener click;
 
         private final String LOG_TAG = ViewHolder.class.getSimpleName();
 
         public ViewHolder(View v, OnItemClickListener click) {
             super(v);
-            ButterKnife.inject(this, v);
+            ButterKnife.bind(this, v);
             this.click = click;
             v.setOnClickListener(this);
         }
@@ -116,8 +117,7 @@ public class AppListRecyclerViewAdapter extends RecyclerView.Adapter<AppListRecy
 
     // Create new views (invoked by the layout manager)
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent,
-                                         int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_row_addapp, null);
         ViewHolder vh = new ViewHolder(v, listener);
         return vh;
@@ -128,9 +128,9 @@ public class AppListRecyclerViewAdapter extends RecyclerView.Adapter<AppListRecy
     public void onBindViewHolder(ViewHolder holder, int position) {
         AppInfo info = filteredList.get(position);
 
-        holder.appIcon.setImageDrawable(info.icon);
-        holder.appName.setText(info.name);
-        holder.appCheckbox.setChecked(info.selected);
+        holder.appIcon.setImageDrawable(info.getIcon());
+        holder.appName.setText(info.getName());
+        holder.appCheckbox.setChecked(info.isSelected());
     }
 
 

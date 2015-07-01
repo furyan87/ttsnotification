@@ -1,4 +1,4 @@
-package com.prochnow.ttsnotifications;
+package com.prochnow.ttsnotifications.fragment;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -11,8 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Switch;
 
+import com.prochnow.ttsnotifications.MainActivity;
+import com.prochnow.ttsnotifications.receiver.NotificationBroadcastReceiver;
+import com.prochnow.ttsnotifications.R;
+
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import butterknife.OnCheckedChanged;
 
 /**
@@ -23,7 +27,7 @@ public class HomeFragment extends Fragment {
 
     private final String LOG_TAG = HomeFragment.class.getSimpleName();
 
-    @InjectView(R.id.serviceEnablerSwitch) Switch serviceEnabledSwitch;
+    @Bind(R.id.serviceEnablerSwitch) Switch serviceEnabledSwitch;
 
 
     private static NotificationBroadcastReceiver receiver;
@@ -43,7 +47,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-        ButterKnife.inject(this, rootView);
+        ButterKnife.bind(this, rootView);
 
         initInstances();
 
