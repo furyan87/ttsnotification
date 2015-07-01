@@ -13,11 +13,11 @@ public class AppInfo {
 
     @DatabaseField private String name;
 
-    @DatabaseField private boolean selected = false;
-
     @DatabaseField private boolean active = false;
 
     private Drawable icon;
+
+    private boolean selected = false;
 
     public AppInfo() {
 

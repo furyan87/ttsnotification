@@ -1,5 +1,6 @@
 package com.prochnow.ttsnotifications.fragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -11,7 +12,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,13 +21,15 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.prochnow.ttsnotifications.R;
 import com.prochnow.ttsnotifications.adapter.AppListRecyclerViewAdapter;
 import com.prochnow.ttsnotifications.model.AppInfo;
-import com.prochnow.ttsnotifications.util.MenuColorizer;
+import com.prochnow.ttsnotifications.model.DatabaseHelper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -41,14 +43,23 @@ public class AppListFragment extends Fragment {
     private final String LOG_TAG = AppListFragment.class.getSimpleName();
 
     @Bind(R.id.appListView) RecyclerView appListView;
-    private AppListRecyclerViewAdapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
     @Bind(R.id.progressBar) ProgressBar progressBar;
     @Bind(R.id.progressBarText) TextView progressBarText;
 
-    View rootView;
+    private DatabaseHelper databaseHelper = null;
+    private View rootView;
+    private AppListRecyclerViewAdapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
+    private List<AppInfo> appList = new ArrayList<>();
 
     public AppListFragment() {
+    }
+
+    private DatabaseHelper getHelper() {
+        if (databaseHelper == null) {
+            databaseHelper = OpenHelperManager.getHelper(getActivity(), DatabaseHelper.class);
+        }
+        return databaseHelper;
     }
 
     @Override
@@ -63,7 +74,6 @@ public class AppListFragment extends Fragment {
         ButterKnife.bind(this, rootView);
 
         setHasOptionsMenu(true);
-
         initInstances();
 
         return rootView;
@@ -91,7 +101,24 @@ public class AppListFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.acceptMenu) {
-            return true;
+            final int[] numberOfAdds = {0};
+
+            getHelper().getAppInfoRuntimeDao().callBatchTasks(new Callable<AppInfo>() {
+                @Override
+                public AppInfo call() throws Exception {
+                    for (AppInfo obj : appList) {
+                        if (obj.isSelected()) {
+                            getHelper().getAppInfoRuntimeDao().createOrUpdate(obj);
+                            numberOfAdds[0]++;
+                        }
+                    }
+                    return null;
+                }
+            });
+            Intent resultIntent = new Intent();
+            resultIntent.putExtra(AppFragment.NUMBER_OF_ADDITIONS, numberOfAdds[0]);
+            getActivity().setResult(Activity.RESULT_OK, resultIntent);
+            getActivity().finish();
         }
 
         return super.onOptionsItemSelected(item);
@@ -100,9 +127,10 @@ public class AppListFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.applist_menu, menu);
-        int color = getResources().getColor(R.color.light_primary_dark);
-        int alpha = -1; // 80% alpha
-        MenuColorizer.colorMenu(getActivity(), menu, color, alpha);
+        //TODO 01.07.15 add correct color for menu items 
+        //        int color = getResources().getColor(R.color.light_primary_dark);
+        //        int alpha = -1; // 80% alpha
+        //        MenuColorizer.colorMenu(getActivity(), menu, color, alpha);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -119,12 +147,19 @@ public class AppListFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                Log.d(LOG_TAG, "onQueryTextChange ");
                 mAdapter.getFilter().filter(newText);
-
                 return true;
             }
         });
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (databaseHelper != null) {
+            OpenHelperManager.releaseHelper();
+            databaseHelper = null;
+        }
     }
 
     //    @OnClick(R.id.speakButton)
@@ -183,7 +218,7 @@ public class AppListFragment extends Fragment {
             progressBarText.setVisibility(View.GONE);
             mAdapter.setData(appInfos);
             mAdapter.notifyDataSetChanged();
-
+            appList = appInfos;
             Snackbar.make(appListView, "Loaded " + count + " apps", Snackbar.LENGTH_SHORT).show();
         }
     }

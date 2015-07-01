@@ -118,7 +118,7 @@ public class AppListRecyclerViewAdapter extends RecyclerView.Adapter<AppListRecy
     // Create new views (invoked by the layout manager)
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_row_addapp, null);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_row_addlist, null);
         ViewHolder vh = new ViewHolder(v, listener);
         return vh;
     }

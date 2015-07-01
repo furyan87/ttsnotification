@@ -13,4 +13,5 @@
     <string name="actionbarDone">Done</string>
     <string name="openDrawer">Navigation drawer is open.</string>
     <string name="closeDrawer">Navigation drawer is closed.</string>
+    <string name="actionbarSave">Save</string>
 </resources>

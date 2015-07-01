@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
@@ -24,6 +25,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     // the DAO object we use to access the SimpleData table
     private Dao<AppInfo, String> simpleDao = null;
+    private RuntimeExceptionDao<AppInfo, String> appInfoRuntimeDao = null;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -61,7 +63,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     }
 
     /**
-     * Returns the Database Access Object (DAO) for our SimpleData class. It will create it or just give the cached
+     * Returns the Database Access Object (DAO) for our AppInfo class. It will create it or just give the cached
      * value.
      */
     public Dao<AppInfo, String> getAppInfoDao() throws SQLException {
@@ -72,11 +74,23 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     }
 
     /**
+     * Returns the RuntimeExceptionDao (Database Access Object) version of a Dao for our SimpleData class. It will
+     * create it or just give the cached value. RuntimeExceptionDao only through RuntimeExceptions.
+     */
+    public RuntimeExceptionDao<AppInfo, String> getAppInfoRuntimeDao() {
+        if (appInfoRuntimeDao == null) {
+            appInfoRuntimeDao = getRuntimeExceptionDao(AppInfo.class);
+        }
+        return appInfoRuntimeDao;
+    }
+
+    /**
      * Close the database connections and clear any cached DAOs.
      */
     @Override
     public void close() {
         super.close();
         simpleDao = null;
+        appInfoRuntimeDao = null;
     }
 }
