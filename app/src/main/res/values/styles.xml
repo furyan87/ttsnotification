@@ -5,12 +5,14 @@
         <item name="colorPrimary">@color/light_primary</item>
         <item name="colorPrimaryDark">@color/light_primary_dark</item>
         <item name="colorAccent">@color/light_accent</item>
+        <item name="android:textColorSecondary">@color/light_primary_dark</item>
     </style>
 
     <style name="AppThemeDark" parent="Theme.AppCompat">
         <item name="colorPrimary">@color/light_primary</item>
         <item name="colorPrimaryDark">@color/light_primary_dark</item>
         <item name="colorAccent">@color/light_accent</item>
+
     </style>
 
     <style name="AppThemeLight.WithoutActionBar">

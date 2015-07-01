@@ -24,6 +24,7 @@ import android.widget.TextView;
 import com.prochnow.ttsnotifications.R;
 import com.prochnow.ttsnotifications.adapter.AppListRecyclerViewAdapter;
 import com.prochnow.ttsnotifications.model.AppInfo;
+import com.prochnow.ttsnotifications.util.MenuColorizer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,7 +84,6 @@ public class AppListFragment extends Fragment {
         mLayoutManager = new LinearLayoutManager(getActivity());
         appListView.setLayoutManager(mLayoutManager);
         appListView.setHasFixedSize(true);
-        // specify an adapter (see also next example)
         mAdapter = new AppListRecyclerViewAdapter();
         appListView.setAdapter(mAdapter);
     }
@@ -91,15 +91,18 @@ public class AppListFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.acceptMenu) {
-
+            return true;
         }
 
-        return true;
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.applist_menu, menu);
+        int color = getResources().getColor(R.color.light_primary_dark);
+        int alpha = -1; // 80% alpha
+        MenuColorizer.colorMenu(getActivity(), menu, color, alpha);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
