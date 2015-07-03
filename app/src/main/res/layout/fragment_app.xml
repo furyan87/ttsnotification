@@ -9,7 +9,8 @@
         android:id="@+id/appListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="8dp"
+        android:paddingBottom="@dimen/fab_height"
+        android:paddingTop="8dp"
         />
 
 </RelativeLayout>
