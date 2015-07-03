@@ -26,6 +26,14 @@
                 android:value=".MainActivity"/>
         </activity>
 
+        <activity
+            android:name=".NotificationPrefsActivity"
+            android:label="@string/addAppTitle"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity"/>
+        </activity>
 
         <receiver android:name=".receiver.NotificationBroadcastReceiver">
             <intent-filter>

@@ -9,11 +9,16 @@ import com.j256.ormlite.field.DatabaseField;
  */
 public class AppInfo {
 
-    @DatabaseField(id = true) private String packageString;
+    public static final String PACKAGE_NAME = "packageName";
+    @DatabaseField(id = true, columnName = PACKAGE_NAME) private String packageString;
 
     @DatabaseField private String name;
 
     @DatabaseField private boolean active = false;
+
+    private boolean templateMode = false;
+
+    @DatabaseField(foreign = true) private NotificationType notification;
 
     private Drawable icon;
 
@@ -73,4 +78,14 @@ public class AppInfo {
     public void setIcon(Drawable icon) {
         this.icon = icon;
     }
+
+    public boolean isTemplateMode() {
+        return templateMode;
+    }
+
+    public void setTemplateMode(boolean templateMode) {
+        this.templateMode = templateMode;
+    }
+
+
 }

@@ -30,15 +30,7 @@ public class NotificationBroadcastReceiver extends BroadcastReceiver {
         String text = msgIntent.getStringExtra("text");
 
         Log.d(LOG_TAG, "onReceive ");
-//            TableRow tr = new TableRow(getApplicationContext());
-//            tr.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
-//            TextView textview = new TextView(getApplicationContext());
-//            textview.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT, 1.0f));
-//            textview.setTextSize(20);
-//            textview.setTextColor(Color.parseColor("#0B0719"));
-//            textview.setText(Html.fromHtml(pack + "<br><b>" + title + " : </b>" + text));
-//            tr.addView(textview);
-//            tab.addView(tr);
+
 
         Intent intent = new Intent(context, TTSService.class);
         intent.putExtra("msgText", title);

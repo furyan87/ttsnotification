@@ -1,5 +1,6 @@
 package com.prochnow.ttsnotifications.service;
 
+import android.app.Notification;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -39,16 +40,17 @@ public class NotificationService extends NotificationListenerService implements 
         if (!serviceEnabeld) {
             return;
         }
-        Bundle extras = sbn.getNotification().extras;
-        String title = extras.getString("android.title");
-        //String text = extras.getCharSequence("android.text").toString();
 
-        Log.i("Title", title);
-        //Log.i("Text", text);
+        Bundle extras = sbn.getNotification().extras;
+        String notificationTitle = extras.getString(Notification.EXTRA_TITLE);
+        CharSequence notificationText = extras.getCharSequence(Notification.EXTRA_TEXT);
+        CharSequence notificationSubText = extras.getCharSequence(Notification.EXTRA_SUB_TEXT);
+        String packageName = sbn.getPackageName();
+
 
         Intent msgrcv = new Intent("Msg");
 
-        msgrcv.putExtra("title", title);
+        //        msgrcv.putExtra("title", title);
         //msgrcv.putExtra("text", text);
         Log.d(LOG_TAG, "onNotificationPosted ");
         getApplicationContext().sendBroadcast(msgrcv);

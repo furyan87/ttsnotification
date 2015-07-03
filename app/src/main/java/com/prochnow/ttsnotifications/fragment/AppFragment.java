@@ -122,7 +122,7 @@ public class AppFragment extends Fragment {
         mLayoutManager = new LinearLayoutManager(getActivity());
         appListView.setLayoutManager(mLayoutManager);
         appListView.setHasFixedSize(true);
-        mAdapter = new ActiveAppsRecyclerViewAdapter();
+        mAdapter = new ActiveAppsRecyclerViewAdapter(getActivity());
         mAdapter.setData(activeApps);
         appListView.setAdapter(mAdapter);
     }

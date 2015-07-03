@@ -14,4 +14,32 @@
     <string name="openDrawer">Navigation drawer is open.</string>
     <string name="closeDrawer">Navigation drawer is closed.</string>
     <string name="actionbarSave">Save</string>
+    <string name="modeTemplate">Template Output</string>
+    <string name="modeNotification">Notification Output</string>
+    <string name="titleText">Notification title</string>
+    <string name="appNameText">Application name</string>
+    <string name="contentText">Notification text</string>
+
+    <string-array
+        name="outputModeName">
+        <item>Notification Output</item>
+        <item>Template Output</item>
+    </string-array>
+
+    <string-array
+        name="notificationOutput">
+        <item>Title</item>
+        <item>Message</item>
+        <item>Message</item>
+        <item>Message</item>
+        <item>Message</item>
+        <item>Message</item>
+        <item>Message</item>
+        <item>Message</item>
+        <item>Message</item>
+        <item>Message</item>
+        <item>Message</item>
+        <item>Message</item>
+        <item>Message</item>
+    </string-array>
 </resources>

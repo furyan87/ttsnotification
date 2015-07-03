@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/optionsInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="What notification content, if existant, should be read for $appName$?"/>
+
+    <TextView
+        android:id="@+id/enableAppNameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/optionsInfo"
+        android:text="@string/appNameText"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+
+    <Switch
+        android:id="@+id/enableAppNameSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/enableAppNameText"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/enableAppNameText"/>
+
+    <TextView
+        android:id="@+id/enableTitleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/enableAppNameText"
+
+        android:text="@string/titleText"
+
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+
+    <Switch
+        android:id="@+id/enableSwitchText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/enableTitleText"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/enableAppNameText"/>
+
+    <TextView
+        android:id="@+id/enableContentText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/enableTitleText"
+
+        android:text="@string/contentText"
+
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+
+    <Switch
+        android:id="@+id/enableContentSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/enableContentText"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/enableAppNameText"/>
+
+    <TextView
+        android:id="@+id/enableSubContentText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/enableContentText"
+
+        android:text="@string/contentText"
+
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+
+    <Switch
+        android:id="@+id/enableSubContentSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/enableSubContentText"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/enableAppNameText"/>
+
+</RelativeLayout>

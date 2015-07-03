@@ -1,10 +1,9 @@
 package com.prochnow.ttsnotifications.adapter;
 
 import android.content.Context;
-import android.content.DialogInterface;
-import android.support.v7.app.AlertDialog;
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +13,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.prochnow.ttsnotifications.R;
+import com.prochnow.ttsnotifications.dialog.SelectModeDialog;
 import com.prochnow.ttsnotifications.model.AppInfo;
 
 import java.util.ArrayList;
@@ -30,9 +30,11 @@ public class ActiveAppsRecyclerViewAdapter extends RecyclerView.Adapter<ActiveAp
     Context context;
 
     private final String LOG_TAG = ActiveAppsRecyclerViewAdapter.class.getSimpleName();
+    private FragmentActivity activity;
 
-    public ActiveAppsRecyclerViewAdapter() {
+    public ActiveAppsRecyclerViewAdapter(FragmentActivity activity) {
 
+        this.activity = activity;
     }
 
     public void setData(List<AppInfo> list) {
@@ -48,7 +50,10 @@ public class ActiveAppsRecyclerViewAdapter extends RecyclerView.Adapter<ActiveAp
         @Bind(R.id.appName) TextView appName;
         @Bind(R.id.appIcon) ImageView appIcon;
         @Bind(R.id.appCheckbox) Switch appCheckbox;
-        @Bind(R.id.activityModeButton) Button modeButton;
+        @Bind(R.id.modeButton) Button modeButton;
+        @Bind(R.id.modeText) TextView modeText;
+        @Bind(R.id.prefButton) Button prefButton;
+        @Bind(R.id.prefText) TextView prefText;
 
         Context context;
 
@@ -75,30 +80,32 @@ public class ActiveAppsRecyclerViewAdapter extends RecyclerView.Adapter<ActiveAp
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        AppInfo info = originalList.get(position);
+        final AppInfo info = originalList.get(position);
 
         holder.appIcon.setImageDrawable(info.getIcon());
         holder.appName.setText(info.getName());
         holder.appCheckbox.setChecked(info.isSelected());
-        holder.modeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                final CharSequence[] testArray = {"Notification Text", "Custom Text"};
 
-                builder.setTitle("Select mode of output").setItems(testArray, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        Log.d(LOG_TAG, "onClick pressed" + testArray[which]);
-                        Log.d(LOG_TAG, "onClick id" + position);
-                        Log.d(LOG_TAG, "onClick " + originalList.get(position).getName());
-                    }
-                });
-                builder.create().show();
-            }
-        });
+        if (info.isTemplateMode()) {
+            holder.modeText.setText(context.getResources().getStringArray(R.array.outputModeName)[1]);
+        } else {
+            holder.modeText.setText(context.getResources().getStringArray(R.array.outputModeName)[0]);
+        }
+
+        {
+            holder.modeButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    SelectModeDialog dialog = new SelectModeDialog();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("package", info.getPackageString());
+                    dialog.setArguments(bundle);
+                    dialog.show(activity.getSupportFragmentManager(), "");
+                }
+            });
+        }
 
     }
-
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
