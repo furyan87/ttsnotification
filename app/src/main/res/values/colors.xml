@@ -8,4 +8,11 @@
     <color name="light_secondary_text">#727272</color>
     <color name="light_icons">#212121</color>
     <color name="light_divider">#B6B6B6</color>
+
+    <!-- Flat Button-->
+    <color name="flat_pressed">#66999999</color>
+    <color name="flat_disabled_text">#40000000</color>
+    <color name="flat_normal_text">#000000</color>
 </resources>
+
+

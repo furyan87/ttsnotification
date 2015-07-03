@@ -9,24 +9,21 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:layout_margin="5dp"
-    card_view:cardCornerRadius="4dp"
+    card_view:cardCornerRadius="2dp"
     card_view:cardPreventCornerOverlap="false"
     card_view:cardUseCompatPadding="true">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?android:attr/selectableItemBackground">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/appIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="56dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:paddingBottom="10dp"
-            android:paddingStart="16dp"
-            android:paddingTop="16dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:scaleType="fitStart"
             android:src="@mipmap/ic_launcher"/>
 
@@ -34,30 +31,74 @@
             android:id="@+id/appName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:layout_toLeftOf="@+id/appCheckbox"
             android:ellipsize="end"
             android:paddingEnd="16dp"
             android:paddingStart="72dp"
-            android:paddingTop="20dp"
             android:singleLine="true"
-            android:textSize="16sp"
+            android:textSize="24sp"
             tools:text="Appname"/>
 
+        <Switch
+            android:id="@+id/appCheckbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="16dp"
+            android:paddingEnd="16dp"/>
 
-        <RelativeLayout
+        <Button
+            android:id="@+id/activityModeButton"
+            style="@style/AppCompat.Button.Flat.Common"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@id/appIcon"
+            android:layout_marginTop="8dp"
+            android:paddingStart="8dp"
+            android:text="Select Mode"/>
+
+        <TextView
+            android:id="@+id/modeText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:padding="8dp">
+            android:layout_alignBaseline="@id/activityModeButton"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_toRightOf="@id/activityModeButton"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="Notifications"
+            android:textSize="14sp"
+            tools:text="Notifications"/>
 
-            <Switch
-                android:id="@+id/appCheckbox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:paddingEnd="8dp"/>
+        <Button
+            android:id="@+id/prefButton"
+            style="@style/AppCompat.Button.Flat.Common"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/activityModeButton"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="4dp"
+            android:paddingStart="8dp"
+            android:text="Edit Prefs"/>
 
-        </RelativeLayout>
+        <TextView
+            android:id="@+id/prefText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/prefButton"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_toRightOf="@id/activityModeButton"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="Lorem ipsum blab fehwuifhaldasfsdfdsfbsdjkbfsdjhbj"
+            android:textSize="14sp"
+            tools:text="Lorem ipsum blab fehwuifhaldasfsdfdsfbsdjkbfsdjhbj"/>
+
+
     </RelativeLayout>
 
 

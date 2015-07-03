@@ -10,10 +10,19 @@
     <dimen name="app_bar_height">256dp</dimen>
     <dimen name="nav_header_height">192dp</dimen>
 
+    <dimen name="toolbar_height">56dp</dimen>
+
     <dimen name="expanded_toolbar_title_margin_start">64dp</dimen>
 
     <dimen name="nav_header_text_margin_left">16dp</dimen>
     <dimen name="nav_header_text_margin_top">8dp</dimen>
+
+    <!-- Flat Button-->
+    <dimen name="btn_flat_corner_radius">1dp</dimen>
+    <dimen name="btn_flat_min_width">88dp</dimen>
+    <dimen name="btn_flat_min_height">36dp</dimen>
+    <dimen name="btn_flat_padding">8dp</dimen>
+    <dimen name="btn_flat_margin">4dp</dimen>
 
 
 </resources>
