@@ -1,29 +1,46 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingBottom="@dimen/activity_vertical_margin"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:paddingTop="@dimen/activity_vertical_margin"
-                tools:context=".MainActivityFragment">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            tools:context=".MainActivityFragment">
 
-    <TextView
-        android:id="@+id/serviceEnablerLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:text="@string/serviceEnablerLabel"
+    <LinearLayout
+        android:id="@+id/settingsContent"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
 
-        android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="72dp">
 
-    <Switch
-        android:id="@+id/serviceEnablerSwitch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/serviceEnablerLabel"/>
+            <TextView
+                android:id="@+id/serviceEnablerLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:paddingEnd="16dp"
+                android:paddingStart="16dp"
+                android:text="@string/serviceEnablerLabel"
+                android:textColor="#000000"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                />
 
-</RelativeLayout>
+            <Switch
+                android:id="@+id/serviceEnablerSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@id/serviceEnablerLabel"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="16dp"
+                android:layout_toRightOf="@+id/serviceEnablerLabel"
+                android:paddingEnd="16dp"/>
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+</ScrollView>

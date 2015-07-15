@@ -16,9 +16,9 @@ public class AppInfo {
 
     @DatabaseField private boolean active = false;
 
-    private boolean templateMode = false;
+    @DatabaseField private boolean templateMode = false;
 
-    @DatabaseField(foreign = true) private NotificationType notification;
+    @DatabaseField(foreign = true, foreignAutoRefresh = true) private NotificationType notification;
 
     private Drawable icon;
 
@@ -87,5 +87,11 @@ public class AppInfo {
         this.templateMode = templateMode;
     }
 
+    public NotificationType getNotification() {
+        return notification;
+    }
 
+    public void setNotification(NotificationType notification) {
+        this.notification = notification;
+    }
 }

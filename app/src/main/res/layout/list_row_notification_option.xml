@@ -2,31 +2,35 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="72dp"
+                android:background="?android:attr/selectableItemBackground"
+    >
 
     <TextView
         android:id="@+id/optionText"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        android:layout_marginStart="16dp"
+        android:layout_toLeftOf="@+id/optionSwitch"
+        android:paddingBottom="20dp"
+        android:paddingTop="16dp"
+        android:text="@string/titleText"
+        android:textSize="16sp"
         tools:text="@string/titleText"/>
 
-    <Switch
+    <CheckBox
         android:id="@+id/optionSwitch"
-        android:layout_width="wrap_content"
+        android:layout_width="56dp"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@id/optionText"
+        android:layout_alignBaseline="@+id/optionText"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/optionText"/>
+        android:layout_marginStart="16dp"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="5dp"
-        android:background="@color/light_accent"/>﻿
-
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="1dp"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:layout_marginBottom="2dp"-->
+    <!--android:layout_marginTop="2dp"-->
+    <!--android:background="@color/light_accent"/>-->
 </RelativeLayout>

@@ -53,25 +53,30 @@ public class SelectModeDialog extends DialogFragment {
                 switch (which) {
                     case 0:
                         info.setTemplateMode(false);
-                        if (isTemplateMode) {
-                            Intent intent = new Intent(getActivity(), NotificationPrefsActivity.class);
-                            intent.putExtra("package", info.getPackageString());
-                            intent.putExtra("template", false);
-                            getActivity().startActivity(intent);
-                        }
+                        //                        if (isTemplateMode) {
+                        //                            Intent intent = new Intent(getActivity(), NotificationPrefsActivity.class);
+                        //                            intent.putExtra("package", info.getPackageString());
+                        //                            intent.putExtra("template", false);
+                        //                            getActivity().startActivity(intent);
+                        //                        }
 
                         break;
                     case 1:
                         info.setTemplateMode(true);
-                        if (isTemplateMode == false) {
-                            Intent intent = new Intent(getActivity(), NotificationPrefsActivity.class);
-                            intent.putExtra("package", info.getPackageString());
-                            intent.putExtra("template", true);
-                            getActivity().startActivity(intent);
-                        }
+                        //                        if (isTemplateMode == false) {
+                        //                            Intent intent = new Intent(getActivity(), NotificationPrefsActivity.class);
+                        //                            intent.putExtra("package", info.getPackageString());
+                        //                            intent.putExtra("template", true);
+                        //                            getActivity().startActivity(intent);
+                        //                        }
 
                         break;
                 }
+                Intent intent = new Intent(getActivity(), NotificationPrefsActivity.class);
+                intent.putExtra("package", info.getPackageString());
+                intent.putExtra("template", false);
+                getActivity().startActivity(intent);
+
 
             }
         });

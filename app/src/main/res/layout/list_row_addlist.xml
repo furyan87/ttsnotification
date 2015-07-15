@@ -5,6 +5,11 @@
                 android:layout_height="56dp"
                 android:background="?android:attr/selectableItemBackground">
 
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+
     <ImageView
         android:id="@+id/appIcon"
         android:layout_width="wrap_content"
@@ -21,11 +26,11 @@
         android:id="@+id/appName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
         android:layout_toLeftOf="@+id/appCheckbox"
         android:ellipsize="end"
         android:paddingEnd="16dp"
         android:paddingStart="72dp"
-        android:paddingTop="20dp"
         android:singleLine="true"
         android:textSize="16sp"
         tools:text="Appname"/>
@@ -34,8 +39,7 @@
         android:id="@+id/appCheckbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@id/appName"
-        android:layout_alignBottom="@id/appName"
         android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
         android:paddingEnd="16dp"/>
 </RelativeLayout>

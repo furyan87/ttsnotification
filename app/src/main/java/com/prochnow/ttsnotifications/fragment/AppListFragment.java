@@ -26,6 +26,7 @@ import com.prochnow.ttsnotifications.R;
 import com.prochnow.ttsnotifications.adapter.AppListRecyclerViewAdapter;
 import com.prochnow.ttsnotifications.model.AppInfo;
 import com.prochnow.ttsnotifications.model.DatabaseHelper;
+import com.prochnow.ttsnotifications.model.NotificationType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -108,6 +109,9 @@ public class AppListFragment extends Fragment {
                 public AppInfo call() throws Exception {
                     for (AppInfo obj : appList) {
                         if (obj.isSelected()) {
+                            NotificationType notification = new NotificationType();
+                            obj.setNotification(notification);
+                            getHelper().getNotificationTypeRuntimeDao().createOrUpdate(notification);
                             getHelper().getAppInfoRuntimeDao().createOrUpdate(obj);
                             numberOfAdds[0]++;
                         }

@@ -19,6 +19,16 @@
     <string name="titleText">Notification title</string>
     <string name="appNameText">Application name</string>
     <string name="contentText">Notification text</string>
+    <string name="defaultModeLabel">Default Mode</string>
+    <string name="defaultModeDesc">Set the default mode for added apps</string>
+    <string name="defaultNotificationLabel">Default Notification Output</string>
+    <string name="defaultNotificationDesc">Select which information should be put out</string>
+    <string name="defaultTemplateLabel">Default Template Output</string>
+    <string name="defaultTemplateDesc">Modify the template text spoken</string>
+    <string name="audioStreamTitle">Audio Stream</string>
+    <string name="audioStreamDesc">Select to which stream the audio is send</string>
+    <string name="deviceStateTitle">Device States</string>
+    <string name="deviceStateDesc">Select in which states the audio should be spoken</string>
 
     <string-array
         name="outputModeName">
@@ -28,18 +38,9 @@
 
     <string-array
         name="notificationOutput">
-        <item>Title</item>
-        <item>Message</item>
-        <item>Message</item>
-        <item>Message</item>
-        <item>Message</item>
-        <item>Message</item>
-        <item>Message</item>
-        <item>Message</item>
-        <item>Message</item>
-        <item>Message</item>
-        <item>Message</item>
-        <item>Message</item>
-        <item>Message</item>
+        <item>Application Name</item>
+        <item>Notification Title</item>
+        <item>Notification Text</item>
+        <item>Notification Subtext</item>
     </string-array>
 </resources>

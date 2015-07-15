@@ -33,18 +33,26 @@ public class NotificationPrefsActivity extends AppCompatActivity {
 
 
     private void initInstances() {
+        String packageName = getIntent().getStringExtra("package");
+
         boolean startTemplateFragment = getIntent().getExtras().getBoolean("template");
 
         if (startTemplateFragment) {
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             TemplateOptionsFragment fragment = new TemplateOptionsFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString("package", packageName);
+            fragment.setArguments(bundle);
             fragmentTransaction.replace(R.id.contentArea, fragment, null);
             fragmentTransaction.commit();
         } else {
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             NotificationOptionsFragment fragment = new NotificationOptionsFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString("package", packageName);
+            fragment.setArguments(bundle);
             fragmentTransaction.replace(R.id.contentArea, fragment, null);
             fragmentTransaction.commit();
         }
